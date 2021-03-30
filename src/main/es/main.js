@@ -1,3 +1,10 @@
+const isOp = (value) => {
+  let arr = ["+", "-", "*", "/"];
+
+  if (arr.includes(value)) return true;
+  return false;
+};
+
 export const rpn = {
   additions(additions) {
     let arr;
@@ -6,15 +13,39 @@ export const rpn = {
     return parseInt(arr[0], 10) + parseInt(arr[1], 10);
   },
   subtractions(subtractions) {
-    return /* TODO: part 2 */ undefined;
+    let arr;
+    arr = subtractions.split(" ");
+
+    return parseInt(arr[0], 10) - parseInt(arr[1], 10);
   },
   multiplications(multiplications) {
-    return /* TODO: part 3 */ undefined;
+    let arr;
+    arr = multiplications.split(" ");
+
+    return parseInt(arr[0], 10) * parseInt(arr[1], 10);
   },
   divisions(divisions) {
-    return /* TODO: part 4 */ undefined;
+    let arr;
+    arr = divisions.split(" ");
+
+    return parseInt(arr[0], 10) / parseInt(arr[1], 10);
   },
   compute(operations) {
-    return /* TODO: last part !! */ undefined;
+    let digits_array;
+    let sign_array;
+
+    for (const tmp in operations.split(" ")) {
+      if (isOp(tmp)) sign_array += tmp;
+      if (Number.isInteger(tmp)) digits_array += tmp;
+    }
+    let result = 0;
+    let digit_index = 0;
+    for (const tmp in sign_array) {
+      if (tmp == "+")
+        rpn.additions(
+          digits_array[digit_index] + " " + digits_array[digit_index + 1] + " +"
+        );
+      digit_index += 2;
+    }
   }
 };
